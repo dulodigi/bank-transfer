@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Metode Pembayaran</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 20px;
+      background: #f9f9f9;
+    }
+    h2 {
+      margin-bottom: 30px;
+    }
+    .payment-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      justify-items: center;
+      margin-bottom: 40px;
+    }
+    .payment-box {
+      background: #fff;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      width: 220px;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .payment-box:hover {
+      transform: scale(1.05);
+    }
+    .payment-box img {
+      width: 100px;
+      height: auto;
+      margin-bottom: 10px;
+    }
+    .payment-box h3 {
+      margin: 10px 0 5px;
+      font-size: 16px;
+    }
+    .payment-info {
+      font-size: 14px;
+      margin: 10px 0;
+      color: #333;
+      font-weight: bold;
+    }
+    button {
+      background: #ff0077;
+      color: #fff;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    button:hover {
+      background: #d40065;
+    }
+
+    /* Tutorial Tabs */
+    .tabs {
+      max-width: 700px;
+      margin: auto;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      padding: 20px;
+    }
+    .tab-buttons {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 15px;
+      gap: 10px;
+    }
+    .tab-buttons button {
+      background: #eee;
+      color: #333;
+      padding: 8px 14px;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+    }
+    .tab-buttons button.active {
+      background: #ff0077;
+      color: #fff;
+    }
+    .tab-content {
+      display: none;
+      text-align: left;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    .tab-content.active {
+      display: block;
+    }
+    .tab-content ol {
+      padding-left: 20px;
+    }
+    .highlight {
+      color: #ff0077;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Pilih Salah Satu Metode Pembayaran</h2>
+
+  <div class="payment-container">
+    <!-- BCA -->
+    <div class="payment-box" onclick="selectPayment('BCA','1234567890','DULO DIGITAL')">
+      <img src="https://seeklogo.com/images/B/bca-bank-central-asia-logo-5A1A5E3C0F-seeklogo.com.png" alt="BCA">
+      <h3>BCA Virtual Account</h3>
+      <div class="payment-info">1234567890<br>a.n. DULO DIGITAL</div>
+      <button>Gunakan Rekening Ini</button>
+    </div>
+
+    <!-- GoPay -->
+    <div class="payment-box" onclick="selectPayment('GoPay','085712345678','DULO DIGITAL')">
+      <img src="https://seeklogo.com/images/G/gopay-logo-025B759B46-seeklogo.com.png" alt="GoPay">
+      <h3>GoPay</h3>
+      <div class="payment-info">085712345678<br>a.n. DULO DIGITAL</div>
+      <button>Gunakan Nomor Ini</button>
+    </div>
+
+    <!-- BNI -->
+    <div class="payment-box" onclick="selectPayment('BNI','9876543210','DULO DIGITAL')">
+      <img src="https://seeklogo.com/images/B/bni-bank-negara-indonesia-logo-B18762A56E-seeklogo.com.png" alt="BNI">
+      <h3>BNI Virtual Account</h3>
+      <div class="payment-info">9876543210<br>a.n. DULO DIGITAL</div>
+      <button>Gunakan Rekening Ini</button>
+    </div>
+  </div>
+
+  <!-- Tutorial Transfer -->
+  <div class="tabs">
+    <h3 id="selected-payment">Silakan pilih metode pembayaran di atas</h3>
+
+    <div class="tab-buttons">
+      <button class="active" onclick="openTab('mbanking')">M-Banking</button>
+      <button onclick="openTab('atm')">ATM</button>
+      <button onclick="openTab('teller')">Teller</button>
+    </div>
+
+    <div id="mbanking" class="tab-content active">
+      <h4>Tutorial Transfer via M-Banking</h4>
+      <ol>
+        <li>Login ke aplikasi M-Banking Anda.</li>
+        <li>Pilih menu <b>Transfer</b>.</li>
+        <li>Masukkan nomor tujuan: <span class="highlight" id="mbank-rek">-</span> a.n. <span class="highlight" id="mbank-name">-</span>.</li>
+        <li>Masukkan jumlah transfer sesuai tagihan.</li>
+        <li>Konfirmasi transaksi dan masukkan PIN.</li>
+        <li>Simpan bukti transfer.</li>
+      </ol>
+    </div>
+
+    <div id="atm" class="tab-content">
+      <h4>Tutorial Transfer via ATM</h4>
+      <ol>
+        <li>Masukkan kartu ATM ke mesin.</li>
+        <li>Pilih bahasa dan masukkan PIN.</li>
+        <li>Pilih menu <b>Transfer</b>.</li>
+        <li>Masukkan nomor tujuan: <span class="highlight" id="atm-rek">-</span> a.n. <span class="highlight" id="atm-name">-</span>.</li>
+        <li>Masukkan nominal transfer sesuai tagihan.</li>
+        <li>Konfirmasi transaksi lalu ambil struk sebagai bukti.</li>
+      </ol>
+    </div>
+
+    <div id="teller" class="tab-content">
+      <h4>Tutorial Transfer via Teller Bank</h4>
+      <ol>
+        <li>Datangi cabang bank terdekat.</li>
+        <li>Isi slip setoran dengan data berikut:</li>
+        <ul>
+          <li>No Rekening: <span class="highlight" id="teller-rek">-</span></li>
+          <li>Nama: <span class="highlight" id="teller-name">-</span></li>
+        </ul>
+        <li>Masukkan jumlah transfer sesuai tagihan.</li>
+        <li>Serahkan slip dan uang ke teller.</li>
+        <li>Simpan bukti transfer dari teller.</li>
+      </ol>
+    </div>
+  </div>
+
+  <script>
+    function openTab(tabId) {
+      const tabs = document.querySelectorAll(".tab-content");
+      const buttons = document.querySelectorAll(".tab-buttons button");
+
+      tabs.forEach(tab => tab.classList.remove("active"));
+      buttons.forEach(btn => btn.classList.remove("active"));
+
+      document.getElementById(tabId).classList.add("active");
+      event.target.classList.add("active");
+    }
+
+    function selectPayment(bank, nomor, nama) {
+      document.getElementById("selected-payment").innerText = 
+        `Metode terpilih: ${bank} - ${nomor} a.n. ${nama}`;
+
+      document.getElementById("mbank-rek").innerText = nomor;
+      document.getElementById("mbank-name").innerText = nama;
+
+      document.getElementById("atm-rek").innerText = nomor;
+      document.getElementById("atm-name").innerText = nama;
+
+      document.getElementById("teller-rek").innerText = nomor;
+      document.getElementById("teller-name").innerText = nama;
+    }
+  </script>
+
+</body>
+</html>
